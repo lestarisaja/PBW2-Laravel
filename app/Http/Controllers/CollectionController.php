@@ -4,6 +4,7 @@ KELAS: D3IF 46-03
 NIM  : 6706223114 */
 namespace App\Http\Controllers;
 
+use App\DataTables\KoleksiDataTable;
 use App\Models\Collection;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -16,11 +17,9 @@ class CollectionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(KoleksiDataTable $dataTable)
     {
-        $collections = Collection::all();
-
-        return view('koleksi.daftarKoleksi', compact(var_name: 'collections'));
+        return $dataTable -> render('koleksi.daftarKoleksi');
     }
 
     /**

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\DataTables\UsersDataTable;
 
 class ProfileController extends Controller
 {
@@ -62,11 +63,10 @@ class ProfileController extends Controller
     }
 
     // display list
-    public function index()
+    public function index(UsersDataTable $dataTable)
     {
-        $users = User::all();
 
-        return view('user.daftarPengguna', compact(var_name: 'users'));
+        return $dataTable -> render('user.daftarPengguna');
     }
 
     // display particular user
