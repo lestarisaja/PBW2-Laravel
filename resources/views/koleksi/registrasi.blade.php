@@ -22,10 +22,6 @@ NIM  : 6706223114 -->
             <x-input-error :messages="$errors->get('jenisKoleksi')" class="mt-2" />
         </div>
 
-
-
-
-
         <!-- Jumlah Koleksi -->
         <div class="mt-4">
             <x-input-label for="jumlahKoleksi" :value="__('Jumlah Koleksi')" />
@@ -42,8 +38,6 @@ NIM  : 6706223114 -->
             <x-input-error :messages="$errors->get('namaPengarang')" class="mt-2" />
         </div>
 
-        
-
         <!-- Tahun Terbit -->
         <div class="mt-4">
             <x-input-label for="tahunTerbit" :value="__('Tahun Terbit')" />
@@ -51,7 +45,6 @@ NIM  : 6706223114 -->
                 :value="old('tahunTerbit')" required autofocus />
             <x-input-error :messages="$errors->get('tahunTerbit')" class="mt-2" />
         </div>
-
 
         <div class="flex items-center justify-end mt-4">
             <!-- button reset -->

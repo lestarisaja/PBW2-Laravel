@@ -5,8 +5,10 @@ KELAS: D3IF 46-03
 NIM  : 6706223114 */
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CollectionController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +54,13 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route untuk show update koleksi
+Route::post('/koleksiUpdate', [CollectionController::class, 'update'])->name('koleksiUpdate');
+// Route untuk show update user
+Route::post('/userUpdate', [UserController::class, 'update'])->name('userUpdate');
+
+
+

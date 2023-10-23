@@ -63,7 +63,7 @@ class UsersDataTable extends DataTable
             Column::make('agama'),
             Column::make('gender'),
             Column::make('action')
-            ->title('Action')
+            ->title('Edit')
             ->exportable(false)
             ->printable(false)
             ->width(60)
@@ -80,6 +80,6 @@ class UsersDataTable extends DataTable
     protected function getActionColumn($data): string
     {
         $showUrl = route('userView', $data->id);
-        return "<a class='waves-effect btn btn-success' data-value='$data->id'href='$showUrl'><a class='material-icons'>View</a>";
+        return "<a class='waves-effect btn btn-success' data-value='$data->id'href='$showUrl'><a class='material-icons'></a>";
     }
 }

@@ -15,6 +15,12 @@ class KoleksiDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))->setRowId('id')
+            ->addColumn('jumlahSisa', function ($data) {
+                return $data->jumlahSisa;
+            })
+            ->addColumn('jumlahKeluar', function ($data) {
+                return $data->jumlahKeluar;
+            })
             ->addColumn('action', function ($data) {
                 return $this->getActionColumn($data);
             });
@@ -43,10 +49,12 @@ class KoleksiDataTable extends DataTable
             Column::make('namaKoleksi'),
             Column::make('jenisKoleksi'),
             Column::make('jumlahKoleksi'),
+            Column::make('jumlahSisa'),
+            Column::make('jumlahKeluar'),
             Column::make('namaPengarang'),
             Column::make('tahunTerbit'),
             Column::computed('action')
-                ->title('Action')
+                ->title('Edit')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
@@ -64,6 +72,6 @@ class KoleksiDataTable extends DataTable
     protected function getActionColumn($data): string
     {
         $showUrl = route('koleksiView', $data->id);
-        return "<a class='waves-effect btn btn-success' data-value='$data->id'href='$showUrl'><a class='material-icons'>View</a>";
+        return "<a class='waves-effect btn btn-success' data-value='$data->id'href='$showUrl'><a class='material-icons'></a>";
 }
 }

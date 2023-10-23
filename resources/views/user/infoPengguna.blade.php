@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+<!-- NAMA : LESTARI
+KELAS: D3IF 46-03
+NIM  : 6706223114 -->
 @section('content')
 <div class="container">
     <h1 class="my-4" style="font-weight: bold;">Rincian Pengguna</h1>
@@ -7,26 +9,6 @@
     <div class="card">
         <div class="card-body">
             <table class="table table-striped">
-                <tr>
-                    <th class="text-start">Full Name</th>
-                    <td>{{ $user->fullname }}</td>
-                </tr>
-                <tr>
-                    <th class="text-start">Email</th>
-                    <td>{{ $user->email }}</td>
-                </tr>
-                <tr>
-                    <th class="text-start">Phone Number</th>
-                    <td>{{ $user->phoneNumber }}</td>
-                </tr>
-                <tr>
-                    <th class="text-start">Address</th>
-                    <td>{{ $user->address }}</td>
-                </tr>
-                <tr>
-                    <th class="text-start">Birth Date</th>
-                    <td>{{ $user->birthdate }}</td>
-                </tr>
                 @php
                 $gender = '';
                 switch ($user->gender) {
@@ -38,18 +20,65 @@
                 break;
                 }
                 @endphp
+                <form action="{{ route('userUpdate') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <input type="hidden" id="id" name="id" value="{{ $user -> id }}">
+                        <label for="fullname" class="form-label">Fullname</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" value="{{ $user->fullname }}">
+                    </div>
 
-                <tr>
-                    <th class="text-start">Agama</th>
-                    <td>{{ $user->agama }}</td>
-                </tr>
-                <tr>
-                    <th class="text-start">Jenis Kelamin</th>
-                    <td>{{ $gender }}</td>
-                </tr>
-            </table>
-            <a href="{{ route('user') }}" class="btn btn-primary">Back</a>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" value="{{ $user->email }}"readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}"readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="text" class="form-control" id="password" name="password">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" value="{{ $user->address }}">
+                    </div> 
+
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="{{ $user->phoneNumber }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="birtdate" class="form-label">Birthdate</label>
+                        <input type="text" class="form-control" id="birthdate" name="birthdate" value="{{ $user->birthdate }}"readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="agama" class="form-label">Agama</label>
+                        <input type="text" class="form-control" id="agama" name="agama" value="{{ $user->agama }}">
+                    </div>
+                    
+                    <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select name="gender" id="gender" class="form-control">
+                        <option value="1" {{ $user->gender === 1 ? 'selected' : '' }}>Pria</option>
+                        <option value="2" {{ $user->gender === 2 ? 'selected' : '' }}>Wanita</option>
+                        </option>
+                    </select>
+                    </div>
+                    <center>
+                    <div class="mt-3">  
+                    <button style="background-color:blue;" type="submit" class="btn btn-primary" >Simpan Perubahan</button>
+                    <a href style="background-color:red; "{{ route('koleksi') }}" class="btn btn-primary">Back</a>
+                    </div> 
+                </form></center>
         </div>
     </div>
+</div>
 </div>
 @endsection
