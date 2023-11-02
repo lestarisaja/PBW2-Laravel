@@ -1,14 +1,11 @@
 <?php
 
-/*NAMA : LESTARI
-KELAS: D3IF 46-03
-NIM  : 6706223114 */
-
+use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\DetailTransactionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CollectionController;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,32 +17,53 @@ use Illuminate\Support\Facades\Auth;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
-
 // Route untuk dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route untuk list pengguna
-Route::get('/user', [\App\Http\Controllers\ProfileController::class, 'index'])->middleware(['auth', 'verified'])->name('user');
+Route::get('/user', [ProfileController::class, 'index'])->middleware(['auth', 'verified'])->name('user');
 
 // Route untuk show daftar pengguna
-Route::get('/userView/{user}', [\App\Http\Controllers\ProfileController::class, 'show'])->middleware(['auth', 'verified'])->name('userView');
+Route::get('/userView/{user}', [UserController::class, 'show'])->middleware(['auth', 'verified'])->name('userView');
 
 // Route untuk daftar koleksi
-Route::get('/koleksi', [\App\Http\Controllers\CollectionController::class, 'index'])->middleware(['auth', 'verified'])->name('koleksi');
+Route::get('/koleksi', [CollectionController::class, 'index'])->middleware(['auth', 'verified'])->name('koleksi');
 
 // Route untuk tambah koleksi
-Route::get('/koleksiTambah', [\App\Http\Controllers\CollectionController::class, 'create'])->middleware(['auth', 'verified'])->name('koleksiTambah');
+Route::get('/koleksiTambah', [CollectionController::class, 'create'])->middleware(['auth', 'verified'])->name('koleksiTambah');
 
-// Route untuk store koleksi
-Route::post('/koleksiStore', [\App\Http\Controllers\CollectionController::class, 'store'])->middleware(['auth', 'verified'])->name('koleksiStore');
+// Route untuk simpan data koleksi
+Route::post('/koleksiStore', [CollectionController::class, 'store'])->middleware(['auth', 'verified'])->name('koleksiStore');
 
-// Route untuk show koleksi
-Route::get('/koleksiView/{collection}', [\App\Http\Controllers\CollectionController::class, 'show'])->middleware(['auth', 'verified'])->name('koleksiView');
+// Rpute untuk show koleksi
+Route::get('/koleksiView/{collection}', [CollectionController::class, 'show'])->middleware(['auth', 'verified'])->name('koleksiView');
+
+
+//Update data perubahan koleksi dan user
+Route::put('/koleksiUpdate', [CollectionController::class, 'update'])->name('koleksiUpdate');
+Route::put('/userUpdate', [UserController::class, 'update'])->name('userUpdate');
+
+//Route untuk list transaksi
+Route::get('/transaksi', [TransactionController::class, 'index'])->middleware(['auth', 'verified'])->name('transaksi');
+
+// Route untuk tambah transaksi
+Route::get('/transaksiTambah', [TransactionController::class, 'create'])->middleware(['auth', 'verified'])->name('transaksiTambah');
+
+// Route untuk simpan data transaksi
+Route::post('/transaksiStore', [TransactionController::class, 'store'])->middleware(['auth', 'verified'])->name('transaksiStore');
+
+// Rpute untuk show transaksi
+Route::get('/transaksiView/{transaction}', [TransactionController::class, 'show'])->middleware(['auth', 'verified'])->name('transaksiView');
+
+route::get('/detailTransactionKembalikan/{detailTransactionId}', [DetailTransactionController::class, 'detailTransactionKembalikan'])->name('detailTransactionKembali');
+Route::post('/detailTransactionUpdate', [DetailTransactionController::class, 'update'])->name('detailTransactionUpdate');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -53,14 +71,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-// Auth::routes();
+require __DIR__ . '/auth.php';
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route untuk show update koleksi
-Route::post('/koleksiUpdate', [CollectionController::class, 'update'])->name('koleksiUpdate');
-// Route untuk show update user
-Route::post('/userUpdate', [UserController::class, 'update'])->name('userUpdate');
-
-
-
+/*NAMA : LESTARI
+KELAS: D3IF 46-03
+NIM  : 6706223114 */
